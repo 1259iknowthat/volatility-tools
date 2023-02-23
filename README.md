@@ -1,1 +1,3 @@
 # volatility-tools
+
+**I DO NOT OWN THOSE PLUGINS IN FOLDEr COMMUNITY PLUGINS**
