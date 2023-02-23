@@ -25,3 +25,8 @@ ssdeepscan.py - like yarascan, but searches for pages matching an ssdeep hash
 malfinddeep.py - whitelist code found by malfind based on an ssdeep hash
 
 apihooksdeep.py - whitelist code found by apihooks based on an ssdeep hash
+
+```
+https://github.com/volatilityfoundation/community/blob/master/FrancescoPicasso/mimikatz.py
+https://github.com/superponible/volatility-plugins
+```
