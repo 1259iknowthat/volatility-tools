@@ -2,6 +2,14 @@
 
 ### **PROFILE & SYMBOL VOLATILITY TOOLS**
 
+**DISCLAIMER:**
+
+The `linux` folder is belongs to [`Volatility Foundation's github repository`](https://github.com/volatilityfoundation/volatility/tree/master/tools/linux).
+
+The `dwarf2json` binary file was built from [`Volatility Foundation's github repository`](https://github.com/volatilityfoundation/dwarf2json).
+
+I DO NOT OWN THOSE TWO.
+
 **Requirements:**
 
 Please make sure you have installed the followings in your lab.
@@ -13,7 +21,7 @@ If not, please do the following steps:
 
 ```sh
 sudo apt install make -y
-sudo apt  install gccgo-go -y
+sudo apt install gccgo-go -y
 ```
 
 **How to build:**
@@ -21,7 +29,7 @@ sudo apt  install gccgo-go -y
 + First, clone this repo to your local lab and change dir to `build-volatility`:
 
 ```sh
-git clone https://github.com/1259iknowthat/volatility-tools.git
+git clone https://github.com/1259iknowthat/volatility-tools.git && cd volatility-tools/build-volatility/
 ```
 
 + Second, run the `build.py` file:
@@ -52,7 +60,11 @@ As far as I know, volatility 2 does not support new Ubuntu kernel anymore. Pleas
 If you still want to build for new kernel, USE AT YOUR OWN RISK!!!
 
 ### **COMMUNITY-PLUGINS**
-**DISCLAIMER:** *I DO NOT OWN THOSE PLUGINS IN COMMUNITY-PLUGINS FOLDER*
+**DISCLAIMER:** 
+
+*I DO NOT OWN THOSE PLUGINS IN COMMUNITY-PLUGINS FOLDER*
+
+*Those are collected from these links below**
 
 Refs:
 
