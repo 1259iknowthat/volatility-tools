@@ -34,11 +34,11 @@ def build(vol_version, package_version):
         linux_image = "linux-image-{}".format(package_version)
         linux_headers = "linux-headers-{}".format(package_version)
         system_map = "/boot/System.map-{}".format(package_version)
-        apt_install = ["/usr/bin/echo", password, "|" ,"/usr/bin/sudo", "-S", "/usr/bin/apt", "install", "-y"]
+        apt_install = "/usr/bin/echo {} | /usr/bin/sudo -S /usr/bin/apt install -y".format(password)
         zip_file = "./output/Ubuntu_{}_profile.zip".format(package_version)
         zip_args = ["/usr/bin/sudo", "zip", zip_file, "./linux-build/module.dwarf", system_map]
         copy_args = ["cp", "-r", "./linux", "./linux-build", "&&", "cd", "./linux-build", "&&", "make"]
-        subprocess.check_call([" ".join(apt_install), linux_image, linux_headers], shell=True)
+        subprocess.check_call("{} {} {}".format(apt_install, linux_image, linux_headers), shell=True)
         subprocess.check_call(" ".join(copy_args), shell=True)
         subprocess.check_call(" ".join(zip_args), shell=True)
         shutil.rmtree("./linux-build") #clear temp file
@@ -47,9 +47,9 @@ def build(vol_version, package_version):
         system_map = "/boot/System.map-{}".format(package_version)
         vmlinux = "/usr/lib/debug/boot/vmlinux-{}".format(package_version)
         json_file = "./output/vmlinux-{}.json".format(package_version)
-        apt_install = ["/usr/bin/echo", password, "|" ,"/usr/bin/sudo", "-S", "/usr/bin/apt", "install", "-y"]
+        apt_install = "/usr/bin/echo {} | /usr/bin/sudo -S /usr/bin/apt install -y".format(password)
         dwarf_args = ["/usr/bin/sudo","./dwarf2json", "linux", "--system-map", system_map, "--elf", vmlinux, ">", json_file]
-        subprocess.check_call([" ".join(apt_install), linux_dgbsym], shell=True)
+        subprocess.check_call("{} {}".format(apt_install, linux_dgbsym), shell=True)
         subprocess.check_call(" ".join(dwarf_args), shell=True)
         
         
