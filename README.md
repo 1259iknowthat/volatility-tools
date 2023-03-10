@@ -16,11 +16,14 @@ Please make sure you have installed the followings in your lab.
 
 + `make`
 + `go` (version 1.11 or later)
++ `dwarfdump`
++ `flex`
++ `bison`
 
 If not, please do the following steps:
 
 ```sh
-sudo apt install make -y
+sudo apt install make dwarfdump flex bison -y
 sudo apt install gccgo-go -y
 ```
 
@@ -58,6 +61,8 @@ This tool is just for Ubuntu distro right now.
 As far as I know, volatility 2 does not support new Ubuntu kernel anymore. Please use volatility 2 profile function for Ubuntu 18.04 or older.
 
 If you still want to build for new kernel, USE AT YOUR OWN RISK!!!
+
+____
 
 ### **COMMUNITY-PLUGINS**
 **DISCLAIMER:** 
