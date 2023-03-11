@@ -51,7 +51,7 @@ options:
 
 + Last, copy the file you need in output folder to one of the followings:
 
-    + `volatility/plugins/overlays/linux/` if it was volatility 2 profile 
+    + `/volatility/plugins/overlays/linux/` if it was volatility 2 profile 
     + `/volatility3/framework/symbols/linux/` if it was volatility 3 symbol
 
 **Caution:**
