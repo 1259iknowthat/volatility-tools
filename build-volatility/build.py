@@ -30,25 +30,35 @@ def get_user_password(): #get user password but don't show up on screen
 
 def build(vol_version, package_version):
     password = get_user_password()
+    apt_install = "/usr/bin/echo {} | /usr/bin/sudo -S /usr/bin/apt install -y".format(password)
+    system_map = "/boot/System.map-{}".format(package_version)
     if (vol_version == '2'): #volatility 2 profile
         linux_image = "linux-image-{}".format(package_version)
         linux_headers = "linux-headers-{}".format(package_version)
-        system_map = "/boot/System.map-{}".format(package_version)
-        apt_install = "/usr/bin/echo {} | /usr/bin/sudo -S /usr/bin/apt install -y".format(password)
         zip_file = "./output/Ubuntu_{}_profile.zip".format(package_version)
         zip_args = ["/usr/bin/sudo", "zip", zip_file, "./linux-build/module.dwarf", system_map]
-        copy_args = ["cp", "-r", "./linux", "./linux-build", "&&", "cd", "./linux-build", "&&", "make"]
+        build_args = ["cp", "-r", "./linux", "./linux-build", "&&", "cd", "./linux-build", "&&", "make"]
         subprocess.check_call("{} {} {}".format(apt_install, linux_image, linux_headers), shell=True)
-        subprocess.check_call(" ".join(copy_args), shell=True)
+        subprocess.check_call(" ".join(build_args), shell=True)
         subprocess.check_call(" ".join(zip_args), shell=True)
         shutil.rmtree("./linux-build") #clear temp file
     elif (vol_version == '3'): #volatility 3 symbolic
         linux_dgbsym = "linux-image-{}-dbgsym".format(package_version)
-        system_map = "/boot/System.map-{}".format(package_version)
         vmlinux = "/usr/lib/debug/boot/vmlinux-{}".format(package_version)
         json_file = "./output/vmlinux-{}.json".format(package_version)
-        apt_install = "/usr/bin/echo {} | /usr/bin/sudo -S /usr/bin/apt install -y".format(password)
         dwarf_args = ["/usr/bin/sudo","./dwarf2json", "linux", "--system-map", system_map, "--elf", vmlinux, ">", json_file]
+        add_apt_source = """
+            echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted universe multiverse
+deb http://ddebs.ubuntu.com $(lsb_release -cs)-updates main restricted universe multiverse
+deb http://ddebs.ubuntu.com $(lsb_release -cs)-proposed main restricted universe multiverse" | \
+sudo tee /etc/apt/sources.list.d/ddebs.list
+        """
+        update_apt_source = """
+            sudo apt install ubuntu-dbgsym-keyring &&
+            sudo apt-get update
+        """
+        subprocess.check_call(add_apt_source, shell=True)
+        subprocess.check_call(update_apt_source, shell=True)
         subprocess.check_call("{} {}".format(apt_install, linux_dgbsym), shell=True)
         subprocess.check_call(" ".join(dwarf_args), shell=True)
         
